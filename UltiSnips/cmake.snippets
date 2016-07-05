@@ -1,0 +1,17 @@
+# =============================================================================
+# Author:         scps950707
+# Email:          scps950707@gmail.com
+# Created:        2016-07-05 23:33
+# Last Modified:  2016-07-05 23:34
+# Filename:       cmake.snippets
+# =============================================================================
+
+priority -50
+
+snippet opencv
+cmake_minimum_required(VERSION 2.8)
+project( ${1:project} )
+find_package( OpenCV REQUIRED )
+add_executable( ${2:excute} ${3:main.cpp} )
+target_link_libraries( ${4:excute} ${OpenCV_LIBS} )
+endsnippet

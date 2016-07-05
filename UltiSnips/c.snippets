@@ -1,0 +1,51 @@
+# =============================================================================
+# Author:         scps950707
+# Email:          scps950707@gmail.com
+# Created:        2016-07-05 23:33
+# Last Modified:  2016-07-05 23:34
+# Filename:       c.snippets
+# =============================================================================
+
+priority -50
+
+snippet header
+/*
+ * Author:         scps950707
+ * Email:          scps950707@gmail.com
+ * Created:        `!v strftime("%Y-%m-%d %H:%M")`
+ * Last Modified:  `!v strftime("%Y-%m-%d %H:%M")`
+ * Filename:       `!v expand('%:t')`
+ */
+endsnippet
+
+snippet main
+int main( int argc, char *argv[] )
+{
+	${0}
+	return 0;
+}
+endsnippet
+snippet mainvoid
+int main( void )
+{
+	${0}
+	return 0;
+}
+endsnippet
+snippet MYDEBUG
+#ifdef __DEBUG__
+#define DEBUG(format, args...) printf("[%s:%d] "format, __FILE__, __LINE__, ##args)
+#else
+#define DEBUG(format, args...)
+#endif
+endsnippet
+snippet MYBOOL
+#define TRUE 1
+#define FALSE 0
+endsnippet
+snippet ndef
+#ifndef __`!v toupper(expand('%:r'))`_`!v toupper(expand('%:e'))`__
+#define __`!v toupper(expand('%:r'))`_`!v toupper(expand('%:e'))`__
+
+#endif
+endsnippet

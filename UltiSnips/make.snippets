@@ -1,0 +1,72 @@
+# =============================================================================
+# Author:         scps950707
+# Email:          scps950707@gmail.com
+# Created:        2016-07-05 23:33
+# Last Modified:  2016-07-05 23:34
+# Filename:       make.snippets
+# =============================================================================
+
+priority -50
+
+snippet single
+SRCS = ${1}
+EXT  = ${2:.c}
+OBJS = $(SRCS:$(EXT)=.o)
+EXEC = ${3:testobj}
+CXX  = ${4:gcc}
+CXXFLAGS = ${5:-Wall -std=c99}
+DEP  = ${6:dep}
+
+all:$(EXEC)
+
+ifdef debug
+CXXFLAGS += -D__DEBUG__
+endif
+
+$(EXEC):$(OBJS)
+	$(CXX) $(CXXFLAGS) -o $(EXEC) $(OBJS)
+
+%.o:%$(EXT)
+	$(CXX) $(CXXFLAGS) -c $<
+
+dep:
+	$(CXX) $(CXXFLAGS) -M $(SRCS) > $(DEP)
+
+clean:
+	rm -rf $(EXEC) $(OBJS) $(DEP)
+endsnippet
+snippet double "double"
+CSRCS = ${1}
+EX1_SRCS = ${2}
+EX2_SRCS = ${3}
+EXT = ${4:.c}
+COBJS = $(CSRCS:$(EXT)=.o)
+EX1_OBJS = $(EX1_SRCS:$(EXT)=.o)
+EX2_OBJS = $(EX2_SRCS:$(EXT)=.o)
+EXEC1 = ${5:testobj1}
+EXEC2 = ${6:testobj2}
+CXX = ${7:gcc}
+CXXFLAGS = ${8:-Wall -std=c99}
+DEP = ${9:dep}
+
+all: $(EXEC1) $(EXEC2)
+
+ifdef debug
+CXXFLAGS += -D__DEBUG__
+endif
+
+$(EXEC1): $(COBJS) $(EX1_OBJS)
+		$(CXX) $(CXXFLAGS) -o $@ $(COBJS) $(EX1_OBJS)
+
+$(EXEC2): $(COBJS) $(EX2_OBJS)
+		$(CXX) $(CXXFLAGS) -o $@ $(COBJS) $(EX2_OBJS)
+
+%.o:%$(EXT)
+		$(CXX) $(CXXFLAGS) -c $<
+
+dep:
+		$(CXX) $(CXXFLAGS) -M $(CSRCS) $(EX1_SRCS) $(EX2_SRCS) > $(DEP)
+
+clean:
+		rm -rf $(EXEC1) $(EXEC2) $(EX1_OBJS) $(EX2_OBJS) $(COBJS) $(DEP)
+endsnippet
