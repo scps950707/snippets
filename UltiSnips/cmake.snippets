@@ -2,7 +2,7 @@
 # Author:         scps950707
 # Email:          scps950707@gmail.com
 # Created:        2016-07-05 23:33
-# Last Modified:  2016-07-18 16:32
+# Last Modified:  2016-07-24 18:19
 # Filename:       cmake.snippets
 # ==========================================================================
 
@@ -12,8 +12,8 @@ snippet opencv
 cmake_minimum_required(VERSION 2.8)
 project( ${1:project} )
 find_package( OpenCV REQUIRED )
-add_executable( ${2:excute} ${3:main.cpp} )
-target_link_libraries( ${4:excute} ${OpenCV_LIBS} )
+add_executable( ${2:execute} ${3:main.cpp} )
+target_link_libraries( ${4:execute} ${OpenCV_LIBS} )
 set(CMAKE_CXX_FLAGS "-Wall -std=c++11")
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 endsnippet
