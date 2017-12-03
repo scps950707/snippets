@@ -15,7 +15,7 @@ OBJS = $(SRCS:$(EXT)=.o)
 EXEC = ${3:testobj}
 CXX  = ${4:gcc}
 CXXFLAGS = ${5:-Wall -std=c99}
-DEP  = ${6:dep}
+LIBS = ${6}
 
 all:$(EXEC)
 
@@ -24,16 +24,13 @@ CXXFLAGS += -D__DEBUG__
 endif
 
 $(EXEC):$(OBJS)
-	$(CXX) $(CXXFLAGS) -o $(EXEC) $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $(EXEC) $(OBJS) $(LIBS)
 
 %.o:%$(EXT)
 	$(CXX) $(CXXFLAGS) -c $<
 
-dep:
-	$(CXX) $(CXXFLAGS) -M $(SRCS) > $(DEP)
-
 clean:
-	rm -rf $(EXEC) $(OBJS) $(DEP)
+	rm -rf $(EXEC) $(OBJS)
 endsnippet
 snippet double "double"
 CSRCS = ${1}
@@ -47,7 +44,7 @@ EXEC1 = ${5:testobj1}
 EXEC2 = ${6:testobj2}
 CXX = ${7:gcc}
 CXXFLAGS = ${8:-Wall -std=c99}
-DEP = ${9:dep}
+LIBS = ${9}
 
 all: $(EXEC1) $(EXEC2)
 
@@ -56,17 +53,14 @@ CXXFLAGS += -D__DEBUG__
 endif
 
 $(EXEC1): $(COBJS) $(EX1_OBJS)
-		$(CXX) $(CXXFLAGS) -o $@ $(COBJS) $(EX1_OBJS)
+		$(CXX) $(CXXFLAGS) -o $@ $(COBJS) $(EX1_OBJS) $(LIBS)
 
 $(EXEC2): $(COBJS) $(EX2_OBJS)
-		$(CXX) $(CXXFLAGS) -o $@ $(COBJS) $(EX2_OBJS)
+		$(CXX) $(CXXFLAGS) -o $@ $(COBJS) $(EX2_OBJS) $(LIBS)
 
 %.o:%$(EXT)
 		$(CXX) $(CXXFLAGS) -c $<
 
-dep:
-		$(CXX) $(CXXFLAGS) -M $(CSRCS) $(EX1_SRCS) $(EX2_SRCS) > $(DEP)
-
 clean:
-		rm -rf $(EXEC1) $(EXEC2) $(EX1_OBJS) $(EX2_OBJS) $(COBJS) $(DEP)
+		rm -rf $(EXEC1) $(EXEC2) $(EX1_OBJS) $(EX2_OBJS) $(COBJS)
 endsnippet
