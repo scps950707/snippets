@@ -34,7 +34,8 @@ int main( void )
 endsnippet
 snippet MYDEBUG
 #ifdef __DEBUG__
-#define DEBUG(format, args...) printf("[%s:%d] "format, __FILE__, __LINE__, ##args)
+#define DEBUG(format, args...) printf("[%s:%d] " format, __FILE__, __LINE__, ##args)
+#define DEBUGLN(format, args...) printf("[%s:%d] " format "\n", __FILE__, __LINE__, ##args)
 #else
 #define DEBUG(format, args...)
 #endif
